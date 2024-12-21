@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_0: -7760784954797969343
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_1: 5394562665119964300
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_2: -6559865425271468153
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_3: 8554610294998689191
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_4: -6395942017589912928
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_5: -3109508425542675628
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_6: -5236965464683202146
+      Pistol_V1.00 - SHOOTING (SIMPLE NO FX)_7: -2420953487902344302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

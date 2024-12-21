@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_0: 1864268150221799755
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_1: -1889830377729457523
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_2: 3221365777661970916
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_3: 560269835424606457
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_4: 3938141714733203178
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_5: 1185699834228887493
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_6: 6301973359692171655
+      Pistol_V1.00 - SHOOTING (MUZZLE FLASH)_7: 2537466950403063725
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

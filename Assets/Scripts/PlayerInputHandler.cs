@@ -1,7 +1,9 @@
 using System.Linq;
+
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Input Actions Asset")]
@@ -13,6 +15,10 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string look = "Look";
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
+
+    [Header("Movement Joystick")]
+    [SerializeField] private TouchJoystick movementJoystick;
+    [SerializeField] private bool isJoystickActive = false;
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
@@ -44,8 +50,16 @@ public class PlayerInputHandler : MonoBehaviour
 
     
 
+    void Update(){
+        if(isJoystickActive){
+            Vector2 joystickInput = movementJoystick.GetJoystickInput();
+            if(joystickInput.magnitude>0) MoveInput = joystickInput;
+            else MoveInput = Vector2.zero;
+        }
+    }
+
     void RegisterInputActions(){
-        moveAction.performed += context => MoveInput = context.ReadValue<Vector2>();
+        moveAction.performed += context => MoveInput = context.ReadValue<Vector2>(); 
         moveAction.canceled += context => MoveInput = Vector2.zero;
 
         lookAction.performed += context => LookInput = context.ReadValue<Vector2>();
@@ -70,4 +84,8 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         sprintAction.Disable();
     }
+
+    
+
+    
 }

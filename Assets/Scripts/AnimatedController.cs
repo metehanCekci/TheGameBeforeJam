@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimatedController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class AnimatedController : MonoBehaviour
     [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 1f;
+    
 
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
@@ -17,9 +19,11 @@ public class AnimatedController : MonoBehaviour
     private bool shouldJump;
     private Vector2 fallVector;
 
+
     [Header("Joystick Settings")]
     [SerializeField] private TouchJoystick touchJoystick; // Dokunmatik joystick
     [SerializeField] private Transform gunTransform; // Silahın Transform'u
+    [SerializeField] private SprintButton sprintButton;
 
     [Header("Bullet Settings")]
     [SerializeField] private GameObject bulletPrefab; // Bullet prefab'ı
@@ -83,15 +87,16 @@ public class AnimatedController : MonoBehaviour
     // Hareket fonksiyonu
     void ApplyMovement()
     {
-        float horizontalInput = inputHandler.MoveInput.x;
-        float speed = moveSpeed * (inputHandler.SprintValue > 0 ? sprintMultiplier : 1f);
+        float horizontalInput =  inputHandler.MoveInput.x; //movementJoystick.GetJoystickInput().x;
+
+        float speed = moveSpeed * (inputHandler.SprintValue > 0 || sprintButton.IsSprinting ? sprintMultiplier : 1f);
 
         // Rigidbody2D linearVelocity ile hareket sağlama
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
     }
 
     // Zıplama fonksiyonu
-    void ApplyJump()
+    [HideInInspector] public void ApplyJump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isGrounded = false;
