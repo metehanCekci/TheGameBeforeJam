@@ -13,6 +13,8 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 1f;
 
+    public int DamageAmount = 20;
+
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
     private bool isGrounded;
@@ -262,7 +264,7 @@ public class AnimatedController : MonoBehaviour
 
     public void TakeDamage()
     {
-        bulletAmount -= 20; // Decrease bullet amount on damage
+        bulletAmount -= DamageAmount; // Decrease bullet amount on damage
         GameObject clone = Instantiate(DropText);
         clone.transform.position = DropText.transform.position;
         clone.transform.parent = DropText.transform.parent;
