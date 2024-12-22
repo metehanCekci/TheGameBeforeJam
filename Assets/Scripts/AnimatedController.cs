@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
+
 public class AnimatedController : MonoBehaviour
 {
     [Header("Player Movement Settings")]
