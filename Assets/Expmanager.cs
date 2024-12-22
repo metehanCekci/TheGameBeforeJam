@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Expmanager : MonoBehaviour
@@ -7,8 +8,8 @@ public class Expmanager : MonoBehaviour
     public delegate void ExpChange(int amount);
     public event ExpChange OnExperienceChange;
 
-    private int currentXp = 0;
-    private int maxXp = 100;
+    private float currentXp = 0;
+    private float maxXp = 100;
     private ProgressBar progressBar;
 
     private void Awake()
@@ -34,13 +35,13 @@ public class Expmanager : MonoBehaviour
         if (currentXp >= maxXp)
         {
             currentXp -= maxXp;
-            maxXp *= 2;
+            maxXp *= 1.25f;
         }
 
         
-        progressBar.SetProgress(currentXp, maxXp);
+        progressBar.SetProgress(Convert.ToInt32(Mathf.Round(currentXp)), Convert.ToInt32(Mathf.Round(maxXp)));
 
         
-        OnExperienceChange?.Invoke(currentXp);
+        OnExperienceChange?.Invoke(Convert.ToInt32(Mathf.Round(currentXp)));
     }
 }

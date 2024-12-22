@@ -73,7 +73,7 @@ public class AnimatedController : MonoBehaviour
         inputHandler = PlayerInputHandler.Instance;
         fallVector = new Vector2(0, -Physics2D.gravity.y);
         initialGunRotation = gunTransform.rotation; // Store initial gun rotation
-        expThreshText.text = "/" + expThreshold.ToString();
+        //expThreshText.text = "/" + expThreshold.ToString();
     }
 
     void Update()
@@ -205,6 +205,10 @@ public class AnimatedController : MonoBehaviour
             ActivateInvincibility(); // Activate invincibility after taking damage
         }
     }
+    
+    
+
+    
 
     // Activates invincibility for the player
     private void ActivateInvincibility()
@@ -273,8 +277,8 @@ public class AnimatedController : MonoBehaviour
         clone.GetComponent<TMP_Text>().color = Color.green;
         clone.GetComponent<TMP_Text>().text = "+"+ bullet;
     }
-    public void GainExp(){
-        if(expCurrent>expThreshold){
+    public void GainExp(){ //BAR VAR O YÜZDEN KULLANILMIYOR
+        /*if(expCurrent>expThreshold){ 
             expThreshold*=expMultiplier;
             expThreshText.text="/"+expThreshold.ToString();
             expCurrent=0;
@@ -282,7 +286,7 @@ public class AnimatedController : MonoBehaviour
         }
         else{
             expCurrentText.text= (++expCurrent).ToString();
-        }
+        }*/
         
     }
 

@@ -34,8 +34,19 @@ public class Spawner : MonoBehaviour
         if (enemies.Length > 0) // Eğer yaratık dizisi boş değilse
         {
             // Diziden rastgele bir yaratık seç
-            int randomIndex = Random.Range(0, enemies.Length);
-            GameObject enemyToSpawn = enemies[randomIndex];
+            int randomIndex = Random.Range(0, 4);
+
+            GameObject enemyToSpawn = null;
+
+            if(randomIndex == 0 || randomIndex == 1 || randomIndex == 2)
+            {
+                enemyToSpawn = enemies[0];
+            }
+            
+            else if(randomIndex == 3)
+            {
+                enemyToSpawn = enemies[1];
+            }
 
             // Yaratığın spawn edileceği x pozisyonunu rastgele belirle
             float randomX = Random.Range(spawnRange.x, spawnRange.y);

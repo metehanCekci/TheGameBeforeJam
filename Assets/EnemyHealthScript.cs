@@ -4,6 +4,7 @@ public class EnemyHealthScript : MonoBehaviour
 {
     public int hp = 2;
     public int bulletReward = 5;
+    public int exp = 50;
     private GameObject player;
 
     void Start()
@@ -14,7 +15,7 @@ public class EnemyHealthScript : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
     }
-    int exp = 100;
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
