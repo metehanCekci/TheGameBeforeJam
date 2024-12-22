@@ -105,6 +105,7 @@ public class AnimatedController : MonoBehaviour
     [HideInInspector]
     public void ApplyJump()
     {
+        if(isGrounded)
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isGrounded = false;
         shouldJump = false;
@@ -153,7 +154,7 @@ public class AnimatedController : MonoBehaviour
 
             bullet.SetActive(true);
 
-            bullet.transform.localScale = new Vector3(2f, 2f, 1f);
+            bullet.transform.localScale = new Vector3(1.8f, 1f, 1f);
             
             bulletHud.text = (--bulletAmount).ToString();
         }
