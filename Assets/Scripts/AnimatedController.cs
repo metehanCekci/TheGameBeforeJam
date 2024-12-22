@@ -46,6 +46,8 @@ public class AnimatedController : MonoBehaviour
     private Collider2D playerCollider; // Player's collider to control collision during invincibility
     private SpriteRenderer spriteRenderer; // To control sprite transparency
 
+    public GameObject DropText;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -116,7 +118,7 @@ public class AnimatedController : MonoBehaviour
     {
         float horizontalInput = inputHandler.MoveInput.x;
 
-        float speed = moveSpeed * (inputHandler.SprintValue > 0 || sprintButton.IsSprinting ? sprintMultiplier : 1f);
+        float speed = moveSpeed ;
 
         // Apply movement using Rigidbody2D velocity
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
@@ -185,7 +187,7 @@ public class AnimatedController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("HurtBox") && !isInvincible) // Check if the player is not invincible
         {
-            bulletAmount -= 5; // Decrease bullet amount on damage
+            TakeDamage();
             ActivateInvincibility(); // Activate invincibility after taking damage
         }
     }
@@ -245,5 +247,27 @@ public class AnimatedController : MonoBehaviour
                 Physics2D.IgnoreCollision(playerCollider, enemyCollider, false); // Re-enable collision with the player
             }
         }
+    }
+
+    public void GainBullet(int bullet)
+    {
+        bulletAmount += bullet;
+        GameObject clone = Instantiate(DropText);
+        clone.transform.position = DropText.transform.position;
+        clone.transform.parent = DropText.transform.parent;
+        clone.SetActive(true);
+        clone.GetComponent<TMP_Text>().color = Color.green;
+        clone.GetComponent<TMP_Text>().text = "+"+ bullet;
+    }
+
+    public void TakeDamage()
+    {
+        bulletAmount -= 20; // Decrease bullet amount on damage
+        GameObject clone = Instantiate(DropText);
+        clone.transform.position = DropText.transform.position;
+        clone.transform.parent = DropText.transform.parent;
+        clone.SetActive(true);
+        clone.GetComponent<TMP_Text>().color = Color.red;
+        clone.GetComponent<TMP_Text>().text = "-20";
     }
 }
