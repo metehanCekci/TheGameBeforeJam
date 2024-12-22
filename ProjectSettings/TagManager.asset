@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - MoveJoystick
   - Bullet
+  - HurtBox
   layers:
   - Default
   - TransparentFX
