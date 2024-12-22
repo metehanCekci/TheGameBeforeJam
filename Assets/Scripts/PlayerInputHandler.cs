@@ -33,12 +33,19 @@ public class PlayerInputHandler : MonoBehaviour
     
 
     void Awake(){
+        
         if(Instance==null){
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
         else{
-            Destroy(gameObject);
+            try{
+                Destroy(gameObject);
+            }
+            catch{
+                Debug.Log("Couldn't delete GameObject.");
+            }
+            
         }
 
         moveAction = playerControls.FindActionMap(mapName).FindAction(move);
@@ -46,6 +53,12 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = playerControls.FindActionMap(mapName).FindAction(jump);
         sprintAction = playerControls.FindActionMap(mapName).FindAction(sprint);
         RegisterInputActions();
+    }
+
+    void Start(){
+        
+        
+        movementJoystick = GameObject.FindWithTag("MoveJoystick").GetComponent<TouchJoystick>();
     }
 
     

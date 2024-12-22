@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +12,16 @@ public class AnimatedController : MonoBehaviour
     [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 1f;
-    
+
 
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
     private bool isGrounded;
     private bool shouldJump;
     private Vector2 fallVector;
+
+    [SerializeField] private GameObject deathMenu;
+
 
 
     [Header("Joystick Settings")]
@@ -29,6 +33,8 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab; // Bullet prefab'ı
     [SerializeField] private Transform firePoint; // Silahın mermi fırlatma noktası
     [SerializeField] private float bulletInterval = 0.25f; // Bullet oluşturma aralığı
+    [SerializeField] private int bulletAmount = 100;
+    [SerializeField] private TMP_Text bulletHud;
 
     private float lastBulletTime = 0f; // Son oluşturulan merminin zamanı
 
@@ -87,7 +93,7 @@ public class AnimatedController : MonoBehaviour
     // Hareket fonksiyonu
     void ApplyMovement()
     {
-        float horizontalInput =  inputHandler.MoveInput.x; //movementJoystick.GetJoystickInput().x;
+        float horizontalInput = inputHandler.MoveInput.x; //movementJoystick.GetJoystickInput().x;
 
         float speed = moveSpeed * (inputHandler.SprintValue > 0 || sprintButton.IsSprinting ? sprintMultiplier : 1f);
 
@@ -96,7 +102,8 @@ public class AnimatedController : MonoBehaviour
     }
 
     // Zıplama fonksiyonu
-    [HideInInspector] public void ApplyJump()
+    [HideInInspector]
+    public void ApplyJump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isGrounded = false;
@@ -140,11 +147,20 @@ public class AnimatedController : MonoBehaviour
     // Bullet oluşturma fonksiyonu
     private void SpawnBullet()
     {
-    GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (bulletAmount != 0)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-    bullet.SetActive(true);
+            bullet.SetActive(true);
 
-    bullet.transform.localScale = new Vector3(2f, 2f, 1f);
+            bullet.transform.localScale = new Vector3(2f, 2f, 1f);
+            
+            bulletHud.text = (--bulletAmount).ToString();
+        }
+        else{
+            deathMenu.SetActive(true);
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
