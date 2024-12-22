@@ -10,31 +10,34 @@ public class EnemyHealthScript : MonoBehaviour
     {
 
     }
-    private void Awake() {
-        player = GameObject.FindWithTag("Player");        
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
 
-                if(other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
 
             hp--;
 
-            
+
             Destroy(other.gameObject);
-            if(hp<=0) 
+            if (hp <= 0)
             {
+                player.GetComponent<AnimatedController>().GainExp();
                 player.GetComponent<AnimatedController>().GainBullet(bulletReward);
                 Destroy(this.gameObject);
-                
+
             }
 
         }

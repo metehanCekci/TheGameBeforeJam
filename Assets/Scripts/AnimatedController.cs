@@ -1,6 +1,8 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 public class AnimatedController : MonoBehaviour
@@ -12,6 +14,12 @@ public class AnimatedController : MonoBehaviour
     [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 1f;
+    [Header("Exp Properties")]
+    [SerializeField] private int expMultiplier = 2;
+    [SerializeField] private int expThreshold=10;
+    [Header("Exp Display Texts")]
+    [SerializeField] private TMP_Text expCurrentText;
+    [SerializeField] private TMP_Text expThreshText;
 
     public int DamageAmount = 20;
 
@@ -20,6 +28,8 @@ public class AnimatedController : MonoBehaviour
     private bool isGrounded;
     private bool shouldJump;
     private Vector2 fallVector;
+    private int expCurrent = 0;
+    
 
     [SerializeField] private GameObject deathMenu;
 
@@ -62,6 +72,7 @@ public class AnimatedController : MonoBehaviour
         inputHandler = PlayerInputHandler.Instance;
         fallVector = new Vector2(0, -Physics2D.gravity.y);
         initialGunRotation = gunTransform.rotation; // Store initial gun rotation
+        expThreshText.text = "/" + expThreshold.ToString();
     }
 
     void Update()
@@ -260,6 +271,18 @@ public class AnimatedController : MonoBehaviour
         clone.SetActive(true);
         clone.GetComponent<TMP_Text>().color = Color.green;
         clone.GetComponent<TMP_Text>().text = "+"+ bullet;
+    }
+    public void GainExp(){
+        if(expCurrent>expThreshold){
+            expThreshold*=expMultiplier;
+            expThreshText.text="/"+expThreshold.ToString();
+            expCurrent=0;
+            expCurrentText.text=(++expCurrent).ToString();
+        }
+        else{
+            expCurrentText.text= (++expCurrent).ToString();
+        }
+        
     }
 
     public void TakeDamage()
