@@ -30,7 +30,7 @@ public class EnemyHealthScript : MonoBehaviour
             // Burada renk değişikliği yapılacak
             StartCoroutine(ChangeColorTemporarily());
 
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<BulletScript>().bulletHp--;
 
             if (hp <= 0)
             {

@@ -44,7 +44,7 @@ public class LevelUpSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            int randomID = Random.Range(0, 7);
+            int randomID = Random.Range(0, 8);
 
             if (randomID == 0) //saldırı hızı
             {
@@ -129,17 +129,17 @@ public class LevelUpSystem : MonoBehaviour
                 }
                 if (upgrade1.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade1.GetComponent<TMP_Text>().text = "Mermi korunumu +%10";
+                    upgrade1.GetComponent<TMP_Text>().text = "Defans +%10";
                     upgrade1ID = 3;
                 }
                 else if (upgrade2.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade2.GetComponent<TMP_Text>().text = "Mermi korunumu +%10";
+                    upgrade2.GetComponent<TMP_Text>().text = "Defans +%10";
                     upgrade2ID = 3;
                 }
                 else if (upgrade3.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade3.GetComponent<TMP_Text>().text = "Mermi korunumu +%10";
+                    upgrade3.GetComponent<TMP_Text>().text = "Defans +%10";
                     upgrade3ID = 3;
                 }
             }
@@ -215,6 +215,76 @@ public class LevelUpSystem : MonoBehaviour
                     upgrade3ID = 6;
                 }
             }
+
+            else if (randomID == 7)
+            {
+                if(bullet.GetComponent<BulletScript>().bulletHp >=5)
+                {
+                    LevelUp();
+                    break;
+                }
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Düşman delme +1";
+                    upgrade1ID = 7;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Düşman delme +1";
+                    upgrade2ID = 7;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Düşman delme +1";
+                    upgrade3ID = 7;
+                }
+            }
+
+            
+            else if (randomID == 8)
+            {
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "+100 mermi";
+                    upgrade1ID = 8;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "+100 mermi";
+                    upgrade2ID = 8;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "+100 mermi";
+                    upgrade3ID = 8;
+                }
+            }
+
+            else if (randomID == 9)
+            {
+                if(bullet.GetComponent<BulletScript>().spreadCount >=5)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade1ID = 9;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade2ID = 9;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade3ID = 9;
+                }
+            }
         }
 
 
@@ -250,7 +320,7 @@ public class LevelUpSystem : MonoBehaviour
         }
         if (ID == 3)
         {
-            player.GetComponent<AnimatedController>().DamageAmount-=3;
+            player.GetComponent<AnimatedController>().DamageAmount-=5;
         }
         if (ID == 4)
         {
@@ -276,6 +346,18 @@ public class LevelUpSystem : MonoBehaviour
         if(ID == 6)
         {
             player.GetComponent<AnimatedController>().invincibilityDuration += 2;
+        }
+        if(ID == 7)
+        {
+            bullet.GetComponent<BulletScript>().bulletHp+=2;
+        }
+        if(ID == 8)
+        {
+            player.GetComponent<AnimatedController>().bulletAmount += 100;
+        }
+        if(ID == 9)
+        {
+            bullet.GetComponent<BulletScript>().spreadCount+=2;
         }
 
         upgrade1.GetComponent<TMP_Text>().text = null;

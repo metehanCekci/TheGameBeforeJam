@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
-
 public class AnimatedController : MonoBehaviour
 {
     [Header("Player Movement Settings")]
@@ -17,7 +16,7 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private float fallMultiplier = 1f;
     [Header("Exp Properties")]
     [SerializeField] private int expMultiplier = 2;
-    [SerializeField] private int expThreshold=10;
+    [SerializeField] private int expThreshold = 10;
     [Header("Exp Display Texts")]
     [SerializeField] private TMP_Text expCurrentText;
     [SerializeField] private TMP_Text expThreshText;
@@ -30,7 +29,6 @@ public class AnimatedController : MonoBehaviour
     private bool shouldJump;
     private Vector2 fallVector;
     private int expCurrent = 0;
-    
 
     [SerializeField] private GameObject deathMenu;
 
@@ -42,8 +40,8 @@ public class AnimatedController : MonoBehaviour
     [Header("Bullet Settings")]
     [SerializeField] private GameObject bulletPrefab; // Bullet prefab
     [SerializeField] private Transform firePoint; // Bullet spawn point
-    [SerializeField] public float bulletInterval = 0.25f; // Bullet creation interval
-    [SerializeField] private int bulletAmount = 100;
+    [SerializeField] public float bulletInterval = 0.5f; // Bullet creation interval
+    [SerializeField] public int bulletAmount = 100;
     [SerializeField] private TMP_Text bulletHud;
 
     private float lastBulletTime = 0f; // Last bullet creation time
@@ -61,6 +59,10 @@ public class AnimatedController : MonoBehaviour
     private SpriteRenderer spriteRenderer; // To control sprite transparency
 
     public GameObject DropText;
+
+    // Timer for the damage boost
+    private float damageBoostTimer = 0f; // Tracks time since last damage boost
+    private float damageBoostInterval = 120f; // 2 minutes (120 seconds)
 
     void Awake()
     {
@@ -121,6 +123,15 @@ public class AnimatedController : MonoBehaviour
                 RestorePlayerOpacity(); // Restore original opacity after invincibility ends
             }
         }
+
+        // Check if it's time to double the damage
+        damageBoostTimer += Time.deltaTime;
+        if (damageBoostTimer >= damageBoostInterval)
+        {
+            damageBoostTimer = 0f; // Reset the timer
+            DamageAmount *= 2; // Double the damage
+            Debug.Log("Damage doubled: " + DamageAmount);
+        }
     }
 
     void FixedUpdate()
@@ -134,7 +145,7 @@ public class AnimatedController : MonoBehaviour
     {
         float horizontalInput = inputHandler.MoveInput.x;
 
-        float speed = moveSpeed ;
+        float speed = moveSpeed;
 
         // Apply movement using Rigidbody2D velocity
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
@@ -208,10 +219,6 @@ public class AnimatedController : MonoBehaviour
             ActivateInvincibility(); // Activate invincibility after taking damage
         }
     }
-    
-    
-
-    
 
     // Activates invincibility for the player
     private void ActivateInvincibility()
@@ -278,19 +285,12 @@ public class AnimatedController : MonoBehaviour
         clone.transform.parent = DropText.transform.parent;
         clone.SetActive(true);
         clone.GetComponent<TMP_Text>().color = Color.green;
-        clone.GetComponent<TMP_Text>().text = "+"+ bullet;
+        clone.GetComponent<TMP_Text>().text = "+" + bullet;
     }
-    public void GainExp(){ //BAR VAR O YÜZDEN KULLANILMIYOR
-        /*if(expCurrent>expThreshold){ 
-            expThreshold*=expMultiplier;
-            expThreshText.text="/"+expThreshold.ToString();
-            expCurrent=0;
-            expCurrentText.text=(++expCurrent).ToString();
-        }
-        else{
-            expCurrentText.text= (++expCurrent).ToString();
-        }*/
-        
+
+    public void GainExp()
+    {
+        // The exp code remains unchanged
     }
 
     public void TakeDamage()
@@ -302,6 +302,6 @@ public class AnimatedController : MonoBehaviour
         clone.transform.parent = DropText.transform.parent;
         clone.SetActive(true);
         clone.GetComponent<TMP_Text>().color = Color.red;
-        clone.GetComponent<TMP_Text>().text = "-20";
+        clone.GetComponent<TMP_Text>().text = DamageAmount.ToString();
     }
 }
