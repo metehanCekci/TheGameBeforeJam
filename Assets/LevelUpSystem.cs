@@ -44,7 +44,7 @@ public class LevelUpSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            int randomID = Random.Range(0, 8);
+            int randomID = Random.Range(0, 10);
 
             if (randomID == 0) //saldırı hızı
             {
@@ -357,7 +357,7 @@ public class LevelUpSystem : MonoBehaviour
         }
         if(ID == 9)
         {
-            bullet.GetComponent<BulletScript>().spreadCount+=2;
+            bullet.GetComponent<BulletScript>().spreadCount++;
         }
 
         upgrade1.GetComponent<TMP_Text>().text = null;

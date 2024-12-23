@@ -47,8 +47,11 @@ public class BulletScript : MonoBehaviour
         // Mark that the spread has occurred to avoid repeating it
         hasSpread = true;
 
-        // Create the bullets based on spreadCount
-        for (int i = -(spreadCount / 2); i <= spreadCount / 2; i++)
+        // Create the bullets based on spreadCount (but only for the initial bullet)
+        int halfSpreadCount = spreadCount / 2;
+        
+        // Create bullets, including the center bullet at the 0 angle
+        for (int i = -halfSpreadCount; i <= halfSpreadCount; i++)
         {
             // Create a new bullet
             GameObject newBullet = Instantiate(gameObject, transform.position, transform.rotation);
@@ -65,6 +68,9 @@ public class BulletScript : MonoBehaviour
             bulletScript.damage = this.damage; // Maintain the original bullet's damage
             bulletScript.deleteDelay = this.deleteDelay; // Maintain the delete delay
             bulletScript.bulletHp = this.bulletHp; // Maintain the bullet health
+
+            // Disable spread for the newly created bullet (to prevent further spreading)
+            bulletScript.hasSpread = true;  // Mark these new bullets as already spread
 
             // Activate the new bullet
             newBullet.SetActive(true);
