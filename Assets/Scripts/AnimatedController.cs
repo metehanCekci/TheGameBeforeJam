@@ -82,6 +82,7 @@ public class AnimatedController : MonoBehaviour
 
     void Update()
     {
+
         // Joystick input
         Vector2 joystickInput = touchJoystick.GetJoystickInput();
 
@@ -131,6 +132,21 @@ public class AnimatedController : MonoBehaviour
             damageBoostTimer = 0f; // Reset the timer
             DamageAmount *= 2; // Double the damage
             Debug.Log("Damage doubled: " + DamageAmount);
+        }
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0; // Ensure z position is 0 for 2D
+        Vector3 direction = mousePosition - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Silah için mouse yönü
+
+        // Sol mouse týk basýldýðýnda ateþ etme
+        if (Input.GetMouseButton(0)) // 0 sol mouse butonunu temsil eder
+        {
+            if (Time.time - lastBulletTime >= bulletInterval)
+            {
+                SpawnBullet();
+                lastBulletTime = Time.time;
+            }
         }
     }
 

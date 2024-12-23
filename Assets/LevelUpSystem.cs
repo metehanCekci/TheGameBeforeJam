@@ -271,17 +271,17 @@ public class LevelUpSystem : MonoBehaviour
 
                 if (upgrade1.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade1.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade1.GetComponent<TMP_Text>().text = "Saçmalı ateş+1";
                     upgrade1ID = 9;
                 }
                 else if (upgrade2.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade2.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade2.GetComponent<TMP_Text>().text = "Saçmalı ateş+1";
                     upgrade2ID = 9;
                 }
                 else if (upgrade3.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade3.GetComponent<TMP_Text>().text = "Saçmalı ateş+2";
+                    upgrade3.GetComponent<TMP_Text>().text = "Saçmalı ateş+1";
                     upgrade3ID = 9;
                 }
             }

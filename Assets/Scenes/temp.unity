@@ -7772,7 +7772,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 186677020823709544, guid: b35750e5aedc7734c900cd01b360c23a, type: 3}
       propertyPath: isJoystickActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 186677020823709544, guid: b35750e5aedc7734c900cd01b360c23a, type: 3}
       propertyPath: movementJoystick
