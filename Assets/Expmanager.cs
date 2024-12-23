@@ -37,7 +37,7 @@ public class Expmanager : MonoBehaviour
             lvl.level++;
             currentXp -= maxXp;
             this.gameObject.GetComponent<LevelUpSystem>().LevelUp();
-            maxXp *= 1.65f;
+            maxXp *= 1.45f;
         }
 
         
