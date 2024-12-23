@@ -162,7 +162,7 @@ public class AnimatedController : MonoBehaviour
             {
                 if (!isGunFlipped)
                 {
-                    gunTransform.gameObject.GetComponent<SpriteRenderer>().flipY = true;
+                    gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
                     isGunFlipped = true;
                 }
             }
@@ -170,7 +170,7 @@ public class AnimatedController : MonoBehaviour
             {
                 if (isGunFlipped)
                 {
-                    gunTransform.gameObject.GetComponent<SpriteRenderer>().flipY = false;
+                    gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
                     isGunFlipped = false;
                 }
             }
