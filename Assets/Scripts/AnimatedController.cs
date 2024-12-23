@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
@@ -22,6 +23,7 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private TMP_Text expThreshText;
 
     public int DamageAmount = 35;
+    public int DefenceScale;
 
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
@@ -62,7 +64,7 @@ public class AnimatedController : MonoBehaviour
 
     // Timer for the damage boost
     private float damageBoostTimer = 0f; // Tracks time since last damage boost
-    private float damageBoostInterval = 120f; // 2 minutes (120 seconds)
+    private float damageBoostInterval = 80f; // 2 minutes (120 seconds)
 
     void Awake()
     {
@@ -82,7 +84,7 @@ public class AnimatedController : MonoBehaviour
 
     void Update()
     {
-
+        DefenceScale = Convert.ToInt16(Math.Round((DamageAmount / 100.0) * 10));
         // Joystick input
         Vector2 joystickInput = touchJoystick.GetJoystickInput();
 
@@ -130,16 +132,15 @@ public class AnimatedController : MonoBehaviour
         if (damageBoostTimer >= damageBoostInterval)
         {
             damageBoostTimer = 0f; // Reset the timer
-            DamageAmount *= 2; // Double the damage
-            Debug.Log("Damage doubled: " + DamageAmount);
+            DamageAmount += DamageAmount;
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0; // Ensure z position is 0 for 2D
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Silah için mouse yönü
+        gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Silah iï¿½in mouse yï¿½nï¿½
 
-        // Sol mouse týk basýldýðýnda ateþ etme
+        // Sol mouse tï¿½k basï¿½ldï¿½ï¿½ï¿½nda ateï¿½ etme
         if (Input.GetMouseButton(0)) // 0 sol mouse butonunu temsil eder
         {
             if (Time.time - lastBulletTime >= bulletInterval)

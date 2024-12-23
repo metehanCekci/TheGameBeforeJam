@@ -2590,7 +2590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 80
-  bulletReward: 13
+  bulletReward: 12
   exp: 30
 --- !u!50 &675696553
 Rigidbody2D:
@@ -3299,6 +3299,7 @@ MonoBehaviour:
   upgrade2ID: 0
   upgrade3ID: 0
   bullet: {fileID: 2016225679}
+  defence: 0
 --- !u!1 &924234393
 GameObject:
   m_ObjectHideFlags: 0
@@ -4043,7 +4044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 24
-  bulletReward: 6
+  bulletReward: 4
   exp: 12
 --- !u!50 &1104104967
 Rigidbody2D:
@@ -4408,7 +4409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 22
-  bulletReward: 5
+  bulletReward: 4
   exp: 8
 --- !u!50 &1125162691
 Rigidbody2D:
@@ -7772,12 +7773,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 186677020823709544, guid: b35750e5aedc7734c900cd01b360c23a, type: 3}
       propertyPath: isJoystickActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 186677020823709544, guid: b35750e5aedc7734c900cd01b360c23a, type: 3}
       propertyPath: movementJoystick
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1834401950}
     - target: {fileID: 6104668522861468941, guid: b35750e5aedc7734c900cd01b360c23a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.38352442

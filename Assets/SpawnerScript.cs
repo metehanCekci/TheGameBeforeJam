@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
 
         // Seviye atlamak için 5 dakika geçip geçmediğini kontrol et
         timeSinceLastLevelUp += Time.deltaTime;
-        if (timeSinceLastLevelUp >= 120f) // 5 dakika = 300 saniye
+        if (timeSinceLastLevelUp >= 80f) // 5 dakika = 300 saniye
         {
             LevelUp(); // Seviye atla
             timeSinceLastLevelUp = 0f; // Zamanı sıfırla
@@ -54,7 +54,8 @@ public class Spawner : MonoBehaviour
             EnemyHealthScript enemyHealth = enemy.GetComponent<EnemyHealthScript>();
             if (enemyHealth != null)
             {
-                enemyHealth.hp = Mathf.CeilToInt(enemyHealth.hp * 1.5f); // HP'yi iki katına çıkar
+                enemyHealth.hp = Mathf.CeilToInt(enemyHealth.hp+=enemyHealth.hp); // HP'yi iki katına çıkar
+                enemyHealth.exp = Mathf.CeilToInt(enemyHealth.exp+=enemyHealth.exp);
             }
         }
     }
