@@ -8,6 +8,8 @@ TagManager:
   - MoveJoystick
   - Bullet
   - HurtBox
+  - Ball
+  - SFX
   layers:
   - Default
   - TransparentFX

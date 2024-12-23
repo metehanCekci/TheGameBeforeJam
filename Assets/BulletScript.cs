@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     [Header("Delay of deletion")]
     [SerializeField] private float DeleteDelay;
     public float speed = 2f;
+    public int damage = 1;
     private float timer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

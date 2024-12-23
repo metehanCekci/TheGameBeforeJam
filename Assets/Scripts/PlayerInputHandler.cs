@@ -1,6 +1,4 @@
 using System.Linq;
-
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -36,17 +34,8 @@ public class PlayerInputHandler : MonoBehaviour
         
         if(Instance==null){
             Instance = this;
-            DontDestroyOnLoad(Instance);
         }
-        else{
-            try{
-                Destroy(gameObject);
-            }
-            catch{
-                Debug.Log("Couldn't delete GameObject.");
-            }
-            
-        }
+
 
         moveAction = playerControls.FindActionMap(mapName).FindAction(move);
         lookAction = playerControls.FindActionMap(mapName).FindAction(look);
@@ -59,6 +48,7 @@ public class PlayerInputHandler : MonoBehaviour
         
         
         movementJoystick = GameObject.FindWithTag("MoveJoystick").GetComponent<TouchJoystick>();
+        Application.targetFrameRate = 120;
     }
 
     

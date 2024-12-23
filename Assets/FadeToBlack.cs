@@ -31,5 +31,6 @@ public class FadeInEffect : MonoBehaviour
 
         // Tamamen şeffaf olduğunda siyah ekranı tamamen sil.
         this.gameObject.GetComponent<Image>().color = Color.clear;
+        this.gameObject.SetActive(false);
     }
 }

@@ -5,6 +5,7 @@ public class Menu : MonoBehaviour
     
 
     public void LoadLevel(){
+        Debug.Log("click");
         int loadVal;
         if((loadVal=SceneManager.GetActiveScene().buildIndex)==0) SceneManager.LoadScene(1);
         else SceneManager.LoadScene(loadVal+1); 

@@ -44,12 +44,12 @@ public class SimpleEnemyAi : MonoBehaviour
         }
     }
 
-    void MoveTowardsPlayer()
-    {
-        // Calculate the direction towards the player
-        Vector2 direction = (player.position - transform.position).normalized;
+void MoveTowardsPlayer()
+{
+    // Calculate the direction towards the player, but only in the X axis
+    Vector2 direction = new Vector2(player.position.x - transform.position.x, 0).normalized;
 
-        // Move the enemy using Rigidbody2D
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
-    }
+    // Move the enemy using Rigidbody2D, only affecting the X axis
+    rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+}
 }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class AnimatedController : MonoBehaviour
 {
     [Header("Player Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float sprintMultiplier = 1.5f;
 
     [Header("Jump Parameters")]
@@ -22,7 +22,7 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private TMP_Text expCurrentText;
     [SerializeField] private TMP_Text expThreshText;
 
-    public int DamageAmount = 20;
+    public int DamageAmount = 35;
 
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
@@ -42,7 +42,7 @@ public class AnimatedController : MonoBehaviour
     [Header("Bullet Settings")]
     [SerializeField] private GameObject bulletPrefab; // Bullet prefab
     [SerializeField] private Transform firePoint; // Bullet spawn point
-    [SerializeField] private float bulletInterval = 0.25f; // Bullet creation interval
+    [SerializeField] public float bulletInterval = 0.25f; // Bullet creation interval
     [SerializeField] private int bulletAmount = 100;
     [SerializeField] private TMP_Text bulletHud;
 
@@ -50,9 +50,10 @@ public class AnimatedController : MonoBehaviour
 
     private Quaternion initialGunRotation; // Initial gun rotation
     private bool isGunFlipped; // Gun flip status
+    private GameObject SFXPlayer;
 
     // Invincibility settings
-    [SerializeField] private float invincibilityDuration = 2f; // Duration of invincibility after taking damage
+    [SerializeField] public float invincibilityDuration = 2f; // Duration of invincibility after taking damage
     private bool isInvincible = false; // Whether the player is invincible
     private float invincibilityTimer = 0f; // Timer to track invincibility duration
 
@@ -73,6 +74,7 @@ public class AnimatedController : MonoBehaviour
         inputHandler = PlayerInputHandler.Instance;
         fallVector = new Vector2(0, -Physics2D.gravity.y);
         initialGunRotation = gunTransform.rotation; // Store initial gun rotation
+        SFXPlayer = GameObject.FindGameObjectWithTag("SFX");
         //expThreshText.text = "/" + expThreshold.ToString();
     }
 
@@ -184,6 +186,7 @@ public class AnimatedController : MonoBehaviour
             bullet.SetActive(true);
             bullet.transform.localScale = new Vector3(1.8f, 1f, 1f);
             bulletAmount--;
+            SFXPlayer.gameObject.GetComponent<SFXScript>().PlayGunShot();
         }
         else
         {
@@ -292,6 +295,7 @@ public class AnimatedController : MonoBehaviour
 
     public void TakeDamage()
     {
+        SFXPlayer.gameObject.GetComponent<SFXScript>().PlayDamage();
         bulletAmount -= DamageAmount; // Decrease bullet amount on damage
         GameObject clone = Instantiate(DropText);
         clone.transform.position = DropText.transform.position;

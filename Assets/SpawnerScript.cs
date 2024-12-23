@@ -3,7 +3,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Spawner Settings")]
-    [SerializeField] private GameObject[] enemies;  // Yaratıkların dizisi
+    [SerializeField] public GameObject[] enemies;  // Yaratıkların dizisi
     [SerializeField] private float spawnInterval = 5f; // Yaratık çağırma aralığı
                      private float startingInterval;
     [SerializeField] private Vector2 spawnRange = new Vector2(-5f, 5f);  // Yaratıkların spawn olacağı x ekseni aralığı
@@ -22,8 +22,9 @@ public class Spawner : MonoBehaviour
         {
             SpawnEnemy();  // Yaratığı spawn et
             nextSpawnTime = Time.time + spawnInterval;  // Bir sonraki spawn için zamanı ayarla
+            if(startingInterval>0.02f)
+            startingInterval -= 0.03f;
             if(startingInterval>1.25f)
-            startingInterval -= 0.01f;
             spawnInterval = Random.Range(startingInterval-1,startingInterval+1);
         }
     }
@@ -34,18 +35,23 @@ public class Spawner : MonoBehaviour
         if (enemies.Length > 0) // Eğer yaratık dizisi boş değilse
         {
             // Diziden rastgele bir yaratık seç
-            int randomIndex = Random.Range(0, 4);
+            int randomIndex = Random.Range(0, 12);
 
             GameObject enemyToSpawn = null;
 
-            if(randomIndex == 0 || randomIndex == 1 || randomIndex == 2)
+            if(randomIndex>= 0 && randomIndex<=7)
             {
                 enemyToSpawn = enemies[0];
             }
             
-            else if(randomIndex == 3)
+            else if(randomIndex>=8 && randomIndex<=10)
             {
                 enemyToSpawn = enemies[1];
+            }
+            
+            else if(randomIndex == 11)
+            {
+                enemyToSpawn = enemies[2];
             }
 
             // Yaratığın spawn edileceği x pozisyonunu rastgele belirle

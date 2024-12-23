@@ -7,7 +7,7 @@ public class Expmanager : MonoBehaviour
 
     public delegate void ExpChange(int amount);
     public event ExpChange OnExperienceChange;
-
+    public LevelDisplay lvl;
     private float currentXp = 0;
     private float maxXp = 100;
     private ProgressBar progressBar;
@@ -34,8 +34,10 @@ public class Expmanager : MonoBehaviour
       
         if (currentXp >= maxXp)
         {
+            lvl.level++;
             currentXp -= maxXp;
-            maxXp *= 1.25f;
+            this.gameObject.GetComponent<LevelUpSystem>().LevelUp();
+            maxXp *= 1.65f;
         }
 
         
