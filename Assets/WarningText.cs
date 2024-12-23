@@ -21,9 +21,15 @@ public class WarningText : MonoBehaviour
     // This function can be called to start the fade-in and fade-out process
     public void TriggerVisibilityCycle()
     {
-        if (!isVisible)
+        // If the text is not visible, start fading in
+        if (!isVisible && !isFadingIn)
         {
             StartFadingIn();
+        }
+        // If the text is visible and we're not already fading out, start fading out
+        else if (isVisible && !isFadingOut)
+        {
+            StartFadingOut();
         }
     }
 
@@ -62,7 +68,7 @@ public class WarningText : MonoBehaviour
 
         SetAlpha(alpha);
 
-        // Once fade-in is complete, start fading out after a 2-second duration
+        // Once fade-in is complete, wait for 2 seconds, then start fading out
         if (fadeTimer >= fadeDuration)
         {
             isFadingIn = false;
@@ -85,6 +91,7 @@ public class WarningText : MonoBehaviour
             isFadingOut = false;
             fadeTimer = 0f; // Reset fade timer for the next fade
             SetVisibility(false); // Make the text invisible
+            isVisible = false; // Set the visibility state to false
         }
     }
 
