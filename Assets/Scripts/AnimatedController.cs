@@ -88,6 +88,7 @@ public class AnimatedController : MonoBehaviour
         initialGunRotation = gunTransform.rotation;
 
         DefenceScale = Convert.ToInt16(Math.Round((DamageAmount / 100.0) * 10));
+
         // Joystick input
         Vector2 joystickInput = touchJoystick.GetJoystickInput();
 
@@ -150,7 +151,7 @@ public class AnimatedController : MonoBehaviour
         if (damageBoostTimer >= damageBoostInterval)
         {
             damageBoostTimer = 0f; // Reset the timer
-            DamageAmount += DamageAmount;
+            DamageAmount = Mathf.CeilToInt(DamageAmount*1.5f);
         }
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0; // Ensure z position is 0 for 2D
@@ -332,7 +333,7 @@ public class AnimatedController : MonoBehaviour
     public void TakeDamage()
     {
         SFXPlayer.gameObject.GetComponent<SFXScript>().PlayDamage();
-        bulletAmount -= DamageAmount; // Decrease bullet amount on damage
+        bulletAmount -= (DamageAmount - ((DamageAmount/100) * DefenceScale)); // Decrease bullet amount on damage
         GameObject clone = Instantiate(DropText);
         clone.transform.position = DropText.transform.position;
         clone.transform.parent = DropText.transform.parent;
