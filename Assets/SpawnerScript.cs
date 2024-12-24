@@ -54,8 +54,8 @@ public class Spawner : MonoBehaviour
             EnemyHealthScript enemyHealth = enemy.GetComponent<EnemyHealthScript>();
             if (enemyHealth != null)
             {
-                enemyHealth.hp = Mathf.CeilToInt(enemyHealth.hp+=enemyHealth.hp); // HP'yi iki katına çıkar
-                enemyHealth.exp = Mathf.CeilToInt(enemyHealth.exp+=enemyHealth.exp);
+                enemyHealth.hp = Mathf.CeilToInt(enemyHealth.hp*1.45f); // HP'yi iki katına çıkar
+                enemyHealth.exp = Mathf.CeilToInt(enemyHealth.exp*1.45f);
             }
         }
     }

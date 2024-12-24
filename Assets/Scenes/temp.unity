@@ -4301,9 +4301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 0}
-  orbitSpeed: 100
+  orbitSpeed: 150
   orbitRadius: 3
-  damage: 10
+  damage: 40
   isSecondPlanetActive: 1
 --- !u!212 &1113860061
 SpriteRenderer:
@@ -6489,9 +6489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 0}
-  orbitSpeed: 100
+  orbitSpeed: 150
   orbitRadius: 3
-  damage: 10
+  damage: 30
   isSecondPlanetActive: 0
 --- !u!212 &1762207156
 SpriteRenderer:
@@ -7197,8 +7197,8 @@ MonoBehaviour:
   bulletHp: 1
   spreadCount: 1
   spreadAngle: 10
-  simpleRicochet: 1
-  isRicochet: 1
+  simpleRicochet: 0
+  isRicochet: 0
 --- !u!212 &2016225682
 SpriteRenderer:
   m_ObjectHideFlags: 0
