@@ -9,7 +9,7 @@ public class EnemyHealthScript : MonoBehaviour
     private GameObject player;
     private GameObject SFXPlayer;
     private SpriteRenderer spriteRenderer;  // SpriteRenderer bileşeni için bir referans
-
+    
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();  // SpriteRenderer bileşenini al
@@ -23,9 +23,15 @@ public class EnemyHealthScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.gameObject.CompareTag("Bullet"))
         {
             hp -= other.gameObject.GetComponent<BulletScript>().damage;
+
+            if(other.gameObject.GetComponent<BulletScript>().isRicochet){
+                if(other.gameObject.GetComponent<BulletScript>().simpleRicochet) other.gameObject.GetComponent<BulletScript>().StraightRicochet();
+                else other.gameObject.GetComponent<BulletScript>().AngledRicochet();
+            }
 
             // Burada renk değişikliği yapılacak
             StartCoroutine(ChangeColorTemporarily());

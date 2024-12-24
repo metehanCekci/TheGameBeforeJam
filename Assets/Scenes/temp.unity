@@ -7197,6 +7197,8 @@ MonoBehaviour:
   bulletHp: 1
   spreadCount: 1
   spreadAngle: 10
+  simpleRicochet: 1
+  isRicochet: 1
 --- !u!212 &2016225682
 SpriteRenderer:
   m_ObjectHideFlags: 0
