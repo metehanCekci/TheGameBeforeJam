@@ -12,14 +12,15 @@ public class GunFlipScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (gameObject.transform.localRotation.eulerAngles.z > 90 && gameObject.transform.localRotation.eulerAngles.z < 270)
         {
-            Debug.Log("silah çevirildi");
+            Debug.Log("silah ï¿½evirildi");
             spriteRenderer.flipY = true;
         }
         else
         {
             spriteRenderer.flipY = false;
-        }
+        }*/
     }
 }
