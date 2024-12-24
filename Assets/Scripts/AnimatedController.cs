@@ -2,7 +2,9 @@
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
@@ -48,8 +50,8 @@ public class AnimatedController : MonoBehaviour
 
     private float lastBulletTime = 0f; // Last bullet creation time
 
-    private Quaternion initialGunRotation; // Initial gun rotation
-    private bool isGunFlipped; // Gun flip status
+    public Quaternion initialGunRotation; // Initial gun rotation
+    public bool isGunFlipped; // Gun flip status
     private GameObject SFXPlayer;
 
     // Invincibility settings
@@ -77,14 +79,16 @@ public class AnimatedController : MonoBehaviour
     {
         inputHandler = PlayerInputHandler.Instance;
         fallVector = new Vector2(0, -Physics2D.gravity.y);
-        initialGunRotation = gunTransform.rotation; // Store initial gun rotation
         SFXPlayer = GameObject.FindGameObjectWithTag("SFX");
         //expThreshText.text = "/" + expThreshold.ToString();
     }
 
     void Update()
     {
-        
+        initialGunRotation = gunTransform.rotation;
+
+        DefenceScale = Convert.ToInt16(Math.Round((DamageAmount / 100.0) * 10));
+
         // Joystick input
         Vector2 joystickInput = touchJoystick.GetJoystickInput();
 
@@ -103,8 +107,23 @@ public class AnimatedController : MonoBehaviour
         }
 
         // Aim gun based on joystick input
-        AimGun(joystickInput);
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Debug.Log("Mouse algılandı");
+            if (!GameObject.FindGameObjectWithTag("MobileControlHud") == false)
+            {
+                if (GameObject.FindGameObjectWithTag("MobileControlHud").active == true)
+                {
+                    GameObject.FindGameObjectWithTag("MobileControlHud").active = false;
+                }
+            }
+            
+        }
+        else
+        {
+            AimGun(joystickInput);
+        }
+        
         // If joystick is held down, continuously spawn bullets
         if (joystickInput.sqrMagnitude > 0.1f)
         {
@@ -181,28 +200,29 @@ public class AnimatedController : MonoBehaviour
     // Aiming function
     private void AimGun(Vector2 joystickInput)
     {
-        if (joystickInput.sqrMagnitude > 0.1f)
-        {
-            float angle = Mathf.Atan2(joystickInput.y, joystickInput.x) * Mathf.Rad2Deg;
-            gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            if (joystickInput.sqrMagnitude > 0.1f)
+            {
 
-            if (joystickInput.x < 0)
-            {
-                if (!isGunFlipped)
+                float angle = Mathf.Atan2(joystickInput.y, joystickInput.x) * Mathf.Rad2Deg;
+                gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+                if (joystickInput.x < 0)
                 {
-                    gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
-                    isGunFlipped = true;
+                    if (!isGunFlipped)
+                    {
+                        gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
+                        isGunFlipped = true;
+                    }
+                }
+                else
+                {
+                    if (isGunFlipped)
+                    {
+                        gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
+                        isGunFlipped = false;
+                    }
                 }
             }
-            else
-            {
-                if (isGunFlipped)
-                {
-                    gunTransform.localScale = new Vector3(gunTransform.localScale.x, -gunTransform.localScale.y, gunTransform.localScale.z);
-                    isGunFlipped = false;
-                }
-            }
-        }
     }
 
     // Bullet spawning function
@@ -321,4 +341,5 @@ public class AnimatedController : MonoBehaviour
         clone.GetComponent<TMP_Text>().color = Color.red;
         clone.GetComponent<TMP_Text>().text = DamageAmount.ToString();
     }
+    public ButtonControl tap { get; set; }
 }
