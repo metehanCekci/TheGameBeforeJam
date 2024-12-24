@@ -341,5 +341,4 @@ public class AnimatedController : MonoBehaviour
         clone.GetComponent<TMP_Text>().color = Color.red;
         clone.GetComponent<TMP_Text>().text = DamageAmount.ToString();
     }
-    public ButtonControl tap { get; set; }
 }
