@@ -37,7 +37,7 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private GameObject deathMenu;
 
     [Header("Joystick Settings")]
-    [SerializeField] private TouchJoystick touchJoystick; // Joystick for touch input
+    [SerializeField] public TouchJoystick touchJoystick; // Joystick for touch input
     [SerializeField] private Transform gunTransform; // Gun transform
     [SerializeField] private SprintButton sprintButton;
 
@@ -107,7 +107,7 @@ public class AnimatedController : MonoBehaviour
         }
 
         // Aim gun based on joystick input
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && SystemInfo.deviceType == DeviceType.Desktop)
         {
             Debug.Log("Mouse algılandı");
             if (!GameObject.FindGameObjectWithTag("MobileControlHud") == false)
@@ -153,12 +153,14 @@ public class AnimatedController : MonoBehaviour
             damageBoostTimer = 0f; // Reset the timer
             DamageAmount = Mathf.CeilToInt(DamageAmount*1.5f);
         }
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0; // Ensure z position is 0 for 2D
-        Vector3 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Silah i�in mouse y�n�
-
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0; // Ensure z position is 0 for 2D
+            Vector3 direction = mousePosition - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            gunTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Silah i�in mouse y�n�
+        }
         // Sol mouse t�k bas�ld���nda ate� etme
         if (Input.GetMouseButton(0)) // 0 sol mouse butonunu temsil eder
         {
