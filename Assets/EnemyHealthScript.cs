@@ -6,9 +6,13 @@ public class EnemyHealthScript : MonoBehaviour
     public int hp = 2;
     public int bulletReward = 5;
     public int exp = 50;
+    
+    public float offset;
     private GameObject player;
     private GameObject SFXPlayer;
     private SpriteRenderer spriteRenderer;  // SpriteRenderer bileşeni için bir referans
+
+    public GameObject criticalText;
     
     void Start()
     {
@@ -26,7 +30,22 @@ public class EnemyHealthScript : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bullet"))
         {
-            hp -= other.gameObject.GetComponent<BulletScript>().damage;
+            int roll = Random.Range(0,100);
+
+            if(roll>= other.gameObject.GetComponent<BulletScript>().criticalChance)
+            {
+                hp -= other.gameObject.GetComponent<BulletScript>().damage;
+            }
+            else
+            {
+                GameObject clone = Instantiate(criticalText);
+                clone.transform.position = this.gameObject.transform.position;
+                clone.transform.position += transform.right * offset;
+                clone.SetActive(true);
+                hp -= (((other.gameObject.GetComponent<BulletScript>().damage/100) * other.gameObject.GetComponent<BulletScript>().criticalDamage) +  other.gameObject.GetComponent<BulletScript>().damage);
+            }
+
+            
 
             if(other.gameObject.GetComponent<BulletScript>().isRicochet){
                 if(other.gameObject.GetComponent<BulletScript>().simpleRicochet) other.gameObject.GetComponent<BulletScript>().StraightRicochet();

@@ -164,6 +164,7 @@ public class AnimatedController : MonoBehaviour
         // Sol mouse t�k bas�ld���nda ate� etme
         if (Input.GetMouseButton(0)) // 0 sol mouse butonunu temsil eder
         {
+            if (GameObject.FindGameObjectWithTag("MobileControlHud") == false)
             if (Time.time - lastBulletTime >= bulletInterval)
             {
                 SpawnBullet();

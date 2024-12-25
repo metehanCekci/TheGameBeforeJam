@@ -46,7 +46,7 @@ public class LevelUpSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            int randomID = Random.Range(0, 10);
+            int randomID = Random.Range(0, 13);
 
             if (randomID == 0) //saldırı hızı
             {
@@ -292,6 +292,80 @@ public class LevelUpSystem : MonoBehaviour
                     upgrade3ID = 9;
                 }
             }
+
+                        else if (randomID == 10)
+            {
+                if(bullet.GetComponent<BulletScript>().criticalChance >= 90)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Kritik şansı +%40";
+                    upgrade1ID = 10;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Kritik şansı +%40";
+                    upgrade2ID = 10;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Kritik şansı +%40";
+                    upgrade3ID = 10;
+                }
+            }
+                                    else if (randomID == 11)
+            {
+                if(bullet.GetComponent<BulletScript>().criticalDamage >= 200)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Kritik hasarı +%50";
+                    upgrade1ID = 11;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Kritik hasarı +%50";
+                    upgrade2ID = 11;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Kritik hasarı +%50";
+                    upgrade3ID = 11;
+                }
+            }
+
+                                                else if (randomID == 12)
+            {
+                if(bullet.GetComponent<BulletScript>().spreadAngle<= 2 || bullet.GetComponent<BulletScript>().spreadCount== 1)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Saçma açısı -%50";
+                    upgrade1ID = 12;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Saçma açısı -%50";
+                    upgrade2ID = 12;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Saçma açısı -%50";
+                    upgrade3ID = 12;
+                }
+            }
         }
 
 
@@ -370,6 +444,20 @@ public class LevelUpSystem : MonoBehaviour
             bullet.GetComponent<BulletScript>().bulletHp+=1;
             
         }
+        if(ID == 10)
+        {
+            bullet.GetComponent<BulletScript>().criticalChance+=40;
+        }
+        if(ID == 11)
+        {
+            bullet.GetComponent<BulletScript>().criticalDamage+=50;
+        }
+
+        if(ID == 12)
+        {
+            bullet.GetComponent<BulletScript>().spreadAngle -= 10;
+        }
+
 
         upgrade1.GetComponent<TMP_Text>().text = null;
         upgrade2.GetComponent<TMP_Text>().text = null;

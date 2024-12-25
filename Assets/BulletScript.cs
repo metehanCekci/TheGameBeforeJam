@@ -8,7 +8,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private float deleteDelay = 2f; // Time before the bullet is destroyed
     public float speed = 2f; // Bullet speed
     public int damage = 1; // Damage dealt by the bullet
-    public int bulletHp = 1; // Bullet health (i.e., how many hits it can take before it gets destroyed)
+    public int bulletHp = 1; // Bullet health (i.e., how many hits it can take before it gets destroyed
+    public int criticalDamage = 50; // %50
+    public int criticalChance = 10; // %10
 
     [Header("Spread Shot Settings")]
     public int spreadCount = 1; // Number of bullets to spread (1 means normal, 3 means spread shot)
@@ -23,6 +25,7 @@ public class BulletScript : MonoBehaviour
 
     void Start(){
         direction = transform.right;
+
     }
     void Update()
     {
@@ -94,7 +97,7 @@ public class BulletScript : MonoBehaviour
         }
 
         // Disable the current bullet (as it has split into new bullets)
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     [HideInInspector]
