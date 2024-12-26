@@ -1,15 +1,18 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyHealthScript : MonoBehaviour
 {
     public int hp = 2;
     public int bulletReward = 5;
+    public int bulletRewardScale = 0;
     public int exp = 50;
     
     public float offset;
     private GameObject player;
     private GameObject SFXPlayer;
+    public GameObject explosion;
     private SpriteRenderer spriteRenderer;  // SpriteRenderer bileşeni için bir referans
 
     public GameObject criticalText;
@@ -45,6 +48,17 @@ public class EnemyHealthScript : MonoBehaviour
                 hp -= (((other.gameObject.GetComponent<BulletScript>().damage/100) * other.gameObject.GetComponent<BulletScript>().criticalDamage) +  other.gameObject.GetComponent<BulletScript>().damage);
             }
 
+            if(other.gameObject.GetComponent<BulletScript>().explosion)
+            {
+
+                GameObject clone = Instantiate(explosion);
+                if(roll>= other.gameObject.GetComponent<BulletScript>().criticalChance)
+                clone.GetComponent<ExplosionEffect>().damage += ( (clone.GetComponent<ExplosionEffect>().damage/100) *  other.gameObject.GetComponent<BulletScript>().criticalDamage);
+                clone.transform.position = this.transform.position;
+                clone.SetActive(true);
+
+            }
+
             
 
             if(other.gameObject.GetComponent<BulletScript>().isRicochet){
@@ -60,11 +74,16 @@ public class EnemyHealthScript : MonoBehaviour
             if (hp <= 0)
             {
                 player.GetComponent<AnimatedController>().GainExp();
-                player.GetComponent<AnimatedController>().GainBullet(bulletReward);
+                player.GetComponent<AnimatedController>().GainBullet(bulletReward += ((bulletReward/100) * bulletRewardScale));
                 SFXPlayer.gameObject.GetComponent<SFXScript>().PlayHit();
                 Destroy(this.gameObject);
                 Expmanager.Instance.AddExperience(exp);
             }
+        }
+
+        else if(other.gameObject.CompareTag("Explosion"))
+        {
+            hp -= other.gameObject.GetComponent<ExplosionEffect>().damage;
         }
 
         else if (other.gameObject.CompareTag("Ball"))

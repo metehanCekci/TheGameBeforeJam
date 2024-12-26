@@ -21,6 +21,7 @@ public class BulletScript : MonoBehaviour
     [Header("Simply reverted bullets or angled ricochets")]
     public bool simpleRicochet = true;
     public bool isRicochet = false;
+    public bool explosion = false;
     private Vector2 direction;
 
     void Start(){

@@ -9,6 +9,7 @@ public class Expmanager : MonoBehaviour
     public event ExpChange OnExperienceChange;
     public LevelDisplay lvl;
     private float currentXp = 0;
+    public int expMultiplier = 0;
     private float maxXp = 100;
     private ProgressBar progressBar;
 
@@ -29,7 +30,7 @@ public class Expmanager : MonoBehaviour
 
     public void AddExperience(int amount)
     {
-        currentXp += amount;
+        currentXp += ((amount / 100) * expMultiplier) + amount;
 
       
         if (currentXp >= maxXp)

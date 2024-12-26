@@ -9,7 +9,8 @@ public class FadeInEffect : MonoBehaviour
     private void Start()
     {
         // Başlangıçta tam siyah ekran olacak.
-        this.gameObject.GetComponent<Image>().color = Color.black;
+        
+        this.gameObject.GetComponent<Image>().color = new Color(this.gameObject.GetComponent<Image>().color.r, this.gameObject.GetComponent<Image>().color.g, this.gameObject.GetComponent<Image>().color.b, 1f);
 
         // Yavaşça açılmaya başla.
         StartCoroutine(FadeIn());
@@ -23,7 +24,7 @@ public class FadeInEffect : MonoBehaviour
         while (elapsedTime < fadeDuration)
         {
             // Ekranın rengini şeffaf yapacak şekilde geçiş yap.
-            this.gameObject.GetComponent<Image>().color = Color.Lerp(Color.black, Color.clear, elapsedTime / fadeDuration);
+            this.gameObject.GetComponent<Image>().color = Color.Lerp(this.gameObject.GetComponent<Image>().color, Color.clear, elapsedTime / fadeDuration);
 
             elapsedTime += Time.deltaTime;
             yield return null; // Bir sonraki frame'i bekle

@@ -9,7 +9,7 @@ public class FlyEnemyAi : MonoBehaviour
     public GameObject bullet; // Saldırı için mermi prefab'ı
     private bool isInAttackRange = false; // Menzilde olup olmadığını kontrol etmek için
 
-    private float cooldownTime = 2f; // Saldırı arasındaki bekleme süresi
+    private float cooldownTime = 3f; // Saldırı arasındaki bekleme süresi
     private float cooldownTimer = 0f; // Cooldown süresi
 
     private void Awake()

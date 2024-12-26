@@ -12,6 +12,8 @@ public class LevelUpSystem : MonoBehaviour
     public GameObject yakantop1;
     public GameObject yakantop2;
 
+    public ExplosionEffect bomb;
+
     public int upgrade1ID;
     public int upgrade2ID;
     public int upgrade3ID;
@@ -46,16 +48,16 @@ public class LevelUpSystem : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            int randomID = Random.Range(0, 13);
+            int randomID = Random.Range(0, 18);
 
             if (randomID == 0) //saldırı hızı
             {
-                if(player.GetComponent<AnimatedController>().bulletInterval <= 0.3f)
+                if (player.GetComponent<AnimatedController>().bulletInterval <= 0.3f)
                 {
                     LevelUp();
                     Debug.Log("break");
                     break;
-                    
+
                 }
                 if (upgrade1.GetComponent<TMP_Text>().text == null)
                 {
@@ -76,7 +78,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 1)
             {
-                if(bullet.GetComponent<BulletScript>().damage >= 18)
+                if (bullet.GetComponent<BulletScript>().damage >= 18)
                 {
                     LevelUp();
                     break;
@@ -100,7 +102,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 2)
             {
-                if(player.GetComponent<AnimatedController>().moveSpeed >= 7)
+                if (player.GetComponent<AnimatedController>().moveSpeed >= 7)
                 {
                     LevelUp();
                     break;
@@ -124,7 +126,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 3)
             {
-                if(player.GetComponent<AnimatedController>().DefenceScale >= 75)
+                if (player.GetComponent<AnimatedController>().DefenceScale >= 75)
                 {
                     LevelUp();
                     break;
@@ -148,31 +150,31 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 4)
             {
-                if(bulletRewardlvl >= 2)
+                if (bulletRewardlvl >= 2)
                 {
                     LevelUp();
                     break;
                 }
                 if (upgrade1.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade1.GetComponent<TMP_Text>().text = "Mermi ödülü +6";
+                    upgrade1.GetComponent<TMP_Text>().text = "Mermi ödülü +%50";
                     upgrade1ID = 4;
                 }
                 else if (upgrade2.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade2.GetComponent<TMP_Text>().text = "Mermi ödülü +6";
+                    upgrade2.GetComponent<TMP_Text>().text = "Mermi ödülü +%50";
                     upgrade2ID = 4;
                 }
                 else if (upgrade3.GetComponent<TMP_Text>().text == null)
                 {
-                    upgrade3.GetComponent<TMP_Text>().text = "Mermi ödülü +6";
+                    upgrade3.GetComponent<TMP_Text>().text = "Mermi ödülü +%50";
                     upgrade3ID = 4;
                 }
             }
 
             else if (randomID == 5)
             {
-                if(yakanToplvl >=2)
+                if (yakanToplvl >= 2)
                 {
                     LevelUp();
                     break;
@@ -196,7 +198,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 6)
             {
-                if(player.GetComponent<AnimatedController>().invincibilityDuration >= 12)
+                if (player.GetComponent<AnimatedController>().invincibilityDuration >= 6)
                 {
                     LevelUp();
                     break;
@@ -220,7 +222,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 7)
             {
-                if(bullet.GetComponent<BulletScript>().bulletHp >=5 || bullet.GetComponent<BulletScript>().isRicochet==true)
+                if (bullet.GetComponent<BulletScript>().bulletHp >= 5 || bullet.GetComponent<BulletScript>().isRicochet == true)
                 {
                     LevelUp();
                     break;
@@ -245,7 +247,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 8)
             {
-                if(bullet.GetComponent<BulletScript>().spreadCount >=5)
+                if (bullet.GetComponent<BulletScript>().spreadCount >= 5)
                 {
                     LevelUp();
                     break;
@@ -270,7 +272,7 @@ public class LevelUpSystem : MonoBehaviour
 
             else if (randomID == 9)
             {
-                if(bullet.GetComponent<BulletScript>().bulletHp >=5 || cancelRicoShot == true)
+                if (bullet.GetComponent<BulletScript>().bulletHp >= 5 || cancelRicoShot == true)
                 {
                     LevelUp();
                     break;
@@ -293,9 +295,9 @@ public class LevelUpSystem : MonoBehaviour
                 }
             }
 
-                        else if (randomID == 10)
+            else if (randomID == 10)
             {
-                if(bullet.GetComponent<BulletScript>().criticalChance >= 90)
+                if (bullet.GetComponent<BulletScript>().criticalChance >= 90)
                 {
                     LevelUp();
                     break;
@@ -317,9 +319,9 @@ public class LevelUpSystem : MonoBehaviour
                     upgrade3ID = 10;
                 }
             }
-                                    else if (randomID == 11)
+            else if (randomID == 11)
             {
-                if(bullet.GetComponent<BulletScript>().criticalDamage >= 200)
+                if (bullet.GetComponent<BulletScript>().criticalDamage >= 200)
                 {
                     LevelUp();
                     break;
@@ -342,9 +344,9 @@ public class LevelUpSystem : MonoBehaviour
                 }
             }
 
-                                                else if (randomID == 12)
+            else if (randomID == 12)
             {
-                if(bullet.GetComponent<BulletScript>().spreadAngle<= 2 || bullet.GetComponent<BulletScript>().spreadCount== 1)
+                if (bullet.GetComponent<BulletScript>().spreadAngle <= 2 || bullet.GetComponent<BulletScript>().spreadCount == 1)
                 {
                     LevelUp();
                     break;
@@ -364,6 +366,126 @@ public class LevelUpSystem : MonoBehaviour
                 {
                     upgrade3.GetComponent<TMP_Text>().text = "Saçma açısı -%50";
                     upgrade3ID = 12;
+                }
+            }
+
+            else if (randomID == 13)
+            {
+                if (this.gameObject.GetComponent<Expmanager>().expMultiplier >= 75)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Exp çarpanı +%25";
+                    upgrade1ID = 13;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Exp çarpanı +%25";
+                    upgrade2ID = 13;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Exp çarpanı +%25";
+                    upgrade3ID = 13;
+                }
+            }
+
+            else if (randomID == 14)
+            {
+                if (bullet.GetComponent<BulletScript>().explosion == true)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Patlayan mermi";
+                    upgrade1ID = 14;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Patlayan mermi";
+                    upgrade2ID = 14;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Patlayan mermi";
+                    upgrade3ID = 14;
+                }
+            }
+
+            else if (randomID == 15)
+            {
+                if (bomb.damage >= 16 || bullet.GetComponent<BulletScript>().explosion == false)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Patlayan hasar +%100";
+                    upgrade1ID = 15;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Patlayan hasar +%100";
+                    upgrade2ID = 15;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Patlayan hasar +%100";
+                    upgrade3ID = 15;
+                }
+            }
+
+            else if (randomID == 16)
+            {
+                if (player.GetComponent<AnimatedController>().doubleShot)
+                {
+                    LevelUp();
+                    break;
+                }
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "İkili vuruş";
+                    upgrade1ID = 16;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "İkili vuruş";
+                    upgrade2ID = 16;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "İkili vuruş";
+                    upgrade3ID = 16;
+                }
+            }
+
+            else if (randomID == 17)
+            {
+
+                if (upgrade1.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade1.GetComponent<TMP_Text>().text = "Yeniden doğma +1";
+                    upgrade1ID = 17;
+                }
+                else if (upgrade2.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade2.GetComponent<TMP_Text>().text = "Yeniden doğma +1";
+                    upgrade2ID = 17;
+                }
+                else if (upgrade3.GetComponent<TMP_Text>().text == null)
+                {
+                    upgrade3.GetComponent<TMP_Text>().text = "Yeniden doğma +1";
+                    upgrade3ID = 17;
                 }
             }
         }
@@ -393,11 +515,11 @@ public class LevelUpSystem : MonoBehaviour
         }
         if (ID == 1)
         {
-            bullet.GetComponent<BulletScript>().damage+=2;
+            bullet.GetComponent<BulletScript>().damage += 2;
         }
         if (ID == 2)
         {
-            player.GetComponent<AnimatedController>().moveSpeed+=2;
+            player.GetComponent<AnimatedController>().moveSpeed += 2;
         }
         if (ID == 3)
         {
@@ -407,55 +529,81 @@ public class LevelUpSystem : MonoBehaviour
         {
             foreach (var item in spawner.GetComponent<Spawner>().enemies)
             {
-                item.GetComponent<EnemyHealthScript>().bulletReward +=6;
+                item.GetComponent<EnemyHealthScript>().bulletRewardScale += 50;
             }
             bulletRewardlvl++;
         }
         if (ID == 5)
         {
             yakanToplvl++;
-            if(yakanToplvl == 1)
+            if (yakanToplvl == 1)
             {
                 yakantop1.SetActive(true);
             }
-            else if(yakanToplvl == 2)
+            else if (yakanToplvl == 2)
             {
                 yakantop2.SetActive(true);
             }
-            
+
         }
-        if(ID == 6)
+        if (ID == 6)
         {
-            player.GetComponent<AnimatedController>().invincibilityDuration += 6;
+            player.GetComponent<AnimatedController>().invincibilityDuration += 4;
         }
-        if(ID == 7)
+        if (ID == 7)
         {
-            bullet.GetComponent<BulletScript>().bulletHp+=1;
+            bullet.GetComponent<BulletScript>().bulletHp += 1;
             cancelRicoShot = true;
         }
-        if(ID == 8)
+        if (ID == 8)
         {
             bullet.GetComponent<BulletScript>().spreadCount++;
         }
-        if(ID == 9)
+        if (ID == 9)
         {
-            bullet.GetComponent<BulletScript>().simpleRicochet=true;
-            bullet.GetComponent<BulletScript>().isRicochet=true;
-            bullet.GetComponent<BulletScript>().bulletHp+=1;
-            
+            bullet.GetComponent<BulletScript>().simpleRicochet = true;
+            bullet.GetComponent<BulletScript>().isRicochet = true;
+            bullet.GetComponent<BulletScript>().bulletHp += 1;
+
         }
-        if(ID == 10)
+        if (ID == 10)
         {
-            bullet.GetComponent<BulletScript>().criticalChance+=40;
+            bullet.GetComponent<BulletScript>().criticalChance += 40;
         }
-        if(ID == 11)
+        if (ID == 11)
         {
-            bullet.GetComponent<BulletScript>().criticalDamage+=50;
+            bullet.GetComponent<BulletScript>().criticalDamage += 50;
         }
 
-        if(ID == 12)
+        if (ID == 12)
         {
             bullet.GetComponent<BulletScript>().spreadAngle -= 10;
+        }
+
+        if (ID == 13)
+        {
+            this.gameObject.GetComponent<Expmanager>().expMultiplier += 25;
+        }
+
+        if (ID == 14)
+        {
+            bullet.GetComponent<BulletScript>().explosion = true;
+        }
+
+        if (ID == 15)
+        {
+            bomb.damage += 4;
+        }
+
+        if (ID == 16)
+        {
+            player.GetComponent<AnimatedController>().doubleShot = true;
+            player.GetComponent<AnimatedController>().bulletInterval += 0.16f;
+        }
+
+        if (ID == 17)
+        {
+            player.GetComponent<AnimatedController>().resurrection++;
         }
 
 
